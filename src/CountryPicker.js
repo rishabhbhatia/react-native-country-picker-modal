@@ -160,7 +160,7 @@ export default class CountryPicker extends Component {
     filteredCountries = value === '' ?
       countriesList :
       _.filter(countriesList, (o) => {
-        return this.getCountryName(o).toLowerCase().startsWith(value.toLowerCase());
+        return this.getCountryName(o).toLowerCase().startsWith(value.trim().toLowerCase());
       });
     console.log('filteredCountries', value, filteredCountries.length, filteredCountries);
 
@@ -218,10 +218,7 @@ export default class CountryPicker extends Component {
                       autoCorrect={false}
                       placeholder={this.props.filterPlaceholder}
                       placeholderTextColor={this.props.filterPlaceholderTextColor}
-                      style={[
-                        styles.input,
-                        !this.props.closeable && styles.inputOnly
-                      ]}
+                      style={styles.input}
                       onChangeText={this.handleFilterChange}
                       value={this.state.filter}
                     />

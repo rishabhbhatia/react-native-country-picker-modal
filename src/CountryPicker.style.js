@@ -24,10 +24,11 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   input: {
-    height: 48,
-  },
-  inputOnly: {
-    marginLeft: '15%'
+    flex: 1,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderColor: 'lightgray'
   },
   touchFlag: {
     alignItems: 'center',
