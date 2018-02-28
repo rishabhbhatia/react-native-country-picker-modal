@@ -1,4 +1,4 @@
-import { Platform, Dimensions, StyleSheet, PixelRatio } from 'react-native'
+import { Dimensions, StyleSheet, PixelRatio } from 'react-native'
 import { getHeightPercent } from './ratio'
 
 const { height, width } = Dimensions.get('window');
@@ -8,7 +8,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     padding: 25
   },
   modalContent: {
