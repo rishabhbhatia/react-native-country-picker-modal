@@ -15,15 +15,12 @@ import {
   FlatList
 } from 'react-native'
 
-import Fuse from 'fuse.js'
 import _ from 'lodash';
 
 import CountryItem from './countryItem';
 
-import { getHeightPercent } from './ratio'
 import CloseButton from './CloseButton'
 import countryPickerStyles from './CountryPicker.style'
-import KeyboardAvoidingView from './KeyboardAvoidingView'
 
 let countries = null
 let Emoji = null
@@ -172,8 +169,7 @@ export default class CountryPicker extends Component {
     })
   }
 
-  renderCountry({ item, index }) {
-    // console.log('renderCountry', item, index)
+  renderCountry({ item }) {
     return (
       <CountryItem
         country={item}
