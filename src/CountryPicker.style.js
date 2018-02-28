@@ -1,25 +1,30 @@
-import { Platform, StyleSheet, PixelRatio } from 'react-native'
+import { Platform, Dimensions, StyleSheet, PixelRatio } from 'react-native'
 import { getHeightPercent } from './ratio'
+
+const { height, width } = Dimensions.get('window');
 
 export default StyleSheet.create({
   modalContainer: {
-    backgroundColor: 'white',
-    flex: 1
-  },
-  contentContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: 'white'
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#000000',
+    padding: 25
+  },
+  modalContent: {
+    maxHeight: height * 0.8,
+    width: width * 0.8,
+    backgroundColor: 'white',
+  },
+  countryListContainer: {
+    padding: 15,
   },
   header: {
-    marginTop: Platform.OS === 'ios' ? 16 : 0,
     flexDirection: 'row',
     alignItems: 'center'
   },
   input: {
     height: 48,
-    width: '70%'
   },
   inputOnly: {
     marginLeft: '15%'
@@ -62,8 +67,6 @@ export default StyleSheet.create({
   itemCountryName: {
     justifyContent: 'center',
     width: '70%',
-    borderBottomWidth: 2 / PixelRatio.get(),
-    borderBottomColor: '#ccc',
     height: 20
   },
   countryName: {
@@ -71,22 +74,6 @@ export default StyleSheet.create({
   },
   scrollView: {
     flex: 1
-  },
-  letters: {
-    marginRight: 10,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  letter: {
-    height: 25,
-    width: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  letterText: {
-    textAlign: 'center',
-    fontSize: getHeightPercent(2.2)
   },
   closeButton: {
     height: 48,
