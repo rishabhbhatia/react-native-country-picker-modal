@@ -8,6 +8,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Modal,
   Text,
   TextInput,
@@ -37,8 +38,8 @@ if (isEmojiable) {
   Emoji = <View />
 }
 
-const cca2List = Object.keys(countries);
 const countriesList = _.values(countries);
+let filteredCountries = [...countriesList];
 
 export default class CountryPicker extends Component {
   static propTypes = {
@@ -104,7 +105,6 @@ export default class CountryPicker extends Component {
 
     this.state = {
       modalVisible: false,
-      // cca2List: countryList,
       filter: '',
     }
 
@@ -121,8 +121,6 @@ export default class CountryPicker extends Component {
     }
   }
 
-  _keyExtractor = (item, index) => this.getCountryName(item);
-
   onSelectCountry(cca2) {
     this.setState({
       modalVisible: false,
@@ -137,11 +135,6 @@ export default class CountryPicker extends Component {
     })
   }
 
-  getCountryName(country) {
-    const translation = this.props.translation || 'eng';
-    return country.name[translation] || country.name['common'] || country[Object.keys(o)[0]];
-  }
-
   onClose() {
     this.setState({
       modalVisible: false,
@@ -152,15 +145,22 @@ export default class CountryPicker extends Component {
     }
   }
 
+  getCountryName(country) {
+    const translation = this.props.translation || 'eng';
+    return country.name[translation] || country.name['common'] || country[Object.keys(o)[0]];
+  }
+
+  _keyExtractor = (item) => this.getCountryName(item);
+
   openModal() {
     this.setState({ modalVisible: true })
   }
 
   handleFilterChange = value => {
-    const filteredCountries = value === '' ?
-      countries :
+    filteredCountries = value === '' ?
+      countriesList :
       _.filter(countriesList, (o) => {
-        return this.getCountryName(o).startsWith(value);
+        return this.getCountryName(o).toLowerCase().startsWith(value.toLowerCase());
       });
     console.log('filteredCountries', value, filteredCountries.length, filteredCountries);
 
@@ -188,10 +188,9 @@ export default class CountryPicker extends Component {
         >
           {this.props.children ? (
             this.props.children
-          ) : (
-              <View
-                style={[styles.touchFlag, { marginTop: isEmojiable ? 0 : 5 }]}
-              >
+          ) :
+            (
+              <View style={[styles.touchFlag, { marginTop: isEmojiable ? 0 : 5 }]} >
                 {CountryPicker.renderFlag(this.props.cca2)}
               </View>
             )}
@@ -202,41 +201,43 @@ export default class CountryPicker extends Component {
           visible={this.state.modalVisible}
           onRequestClose={() => this.setState({ modalVisible: false })}
         >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <View style={styles.header}>
-                {this.props.closeable && (
-                  <CloseButton
-                    image={this.props.closeButtonImage}
-                    styles={[styles.closeButton, styles.closeButtonImage]}
-                    onPress={() => this.onClose()}
-                  />
-                )}
-                {this.props.filterable && (
-                  <TextInput
-                    autoFocus={this.props.autoFocusFilter}
-                    autoCorrect={false}
-                    placeholder={this.props.filterPlaceholder}
-                    placeholderTextColor={this.props.filterPlaceholderTextColor}
-                    style={[
-                      styles.input,
-                      !this.props.closeable && styles.inputOnly
-                    ]}
-                    onChangeText={this.handleFilterChange}
-                    value={this.state.filter}
-                  />
-                )}
+          <TouchableWithoutFeedback onPress={() => { this.setState({ modalVisible: false }) }} >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <View style={styles.header}>
+                  {this.props.closeable && (
+                    <CloseButton
+                      image={this.props.closeButtonImage}
+                      styles={[styles.closeButton, styles.closeButtonImage]}
+                      onPress={() => this.onClose()}
+                    />
+                  )}
+                  {this.props.filterable && (
+                    <TextInput
+                      autoFocus={this.props.autoFocusFilter}
+                      autoCorrect={false}
+                      placeholder={this.props.filterPlaceholder}
+                      placeholderTextColor={this.props.filterPlaceholderTextColor}
+                      style={[
+                        styles.input,
+                        !this.props.closeable && styles.inputOnly
+                      ]}
+                      onChangeText={this.handleFilterChange}
+                      value={this.state.filter}
+                    />
+                  )}
+                </View>
+                <FlatList
+                  contentContainerStyle={styles.countryListContainer}
+                  data={filteredCountries}
+                  renderItem={this.renderCountry}
+                  keyExtractor={this._keyExtractor}
+                />
               </View>
-              <FlatList
-                contentContainerStyle={styles.countryListContainer}
-                data={countriesList}
-                renderItem={this.renderCountry}
-                keyExtractor={this._keyExtractor}
-              />
             </View>
-          </View>
-        </Modal>
-      </View>
+          </TouchableWithoutFeedback>
+        </Modal >
+      </View >
     )
   }
 }

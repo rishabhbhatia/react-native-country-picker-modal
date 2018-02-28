@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, PixelRatio } from 'react-native'
+import { Platform, Dimensions, StyleSheet, PixelRatio } from 'react-native'
 import { getHeightPercent } from './ratio'
 
 const { height, width } = Dimensions.get('window');
