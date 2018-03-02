@@ -197,6 +197,7 @@ export default class CountryPicker extends Component {
                   data={filteredCountries}
                   renderItem={this.renderCountry}
                   keyExtractor={this.keyExtractor}
+                  keyboardShouldPersistTaps="handled"
                 />
               </View>
             </View>
