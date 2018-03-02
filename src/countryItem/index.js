@@ -6,16 +6,18 @@ import {
   Text
 } from 'react-native'
 
+import PropTypes from 'prop-types';
+
 import styles from '../CountryPicker.style';
 
 export default class CountryItem extends React.PureComponent {
 
-  renderCountryDetail(cca2) {
+  renderCountryDetail() {
     return (
       <View style={styles.itemCountry}>
-        {/* {CountryPicker.renderFlag(cca2)} */}
+        {/* {CountryPicker.renderFlag(this.props.country)} */}
         <View style={styles.itemCountryName}>
-          <Text style={styles.countryName}>{this.props.countryName}</Text>
+          <Text style={styles.countryName}>{this.props.country.name.common}</Text>
         </View>
       </View>
     )
@@ -24,11 +26,21 @@ export default class CountryItem extends React.PureComponent {
   render() {
     return (
       <TouchableOpacity
-        onPress={() => this.onSelectCountry(this.props.country)}
+        onPress={() => this.props.onCountrySelected(this.props.country)}
         activeOpacity={0.99}
       >
-        {this.renderCountryDetail(this.props.country)}
+        {this.renderCountryDetail()}
       </TouchableOpacity>
     );
   }
 }
+
+CountryItem.propTypes = {
+  country: PropTypes.objectOf(PropTypes.any).isRequired,
+  onCountrySelected: PropTypes.func.isRequired
+}
+
+CountryItem.defaultProps = {
+  country: { name: { common: '' } },
+  onCountrySelected: () => { }
+};

@@ -19,13 +19,11 @@ import {
 import _ from 'lodash';
 
 import CountryItem from './countryItem';
-
 import CloseButton from './CloseButton'
-import countryPickerStyles from './CountryPicker.style'
+import styles from './CountryPicker.style'
 
 let countries = null
 let Emoji = null
-let styles = {}
 
 const isEmojiable = Platform.OS === 'ios'
 
@@ -39,7 +37,6 @@ if (isEmojiable) {
 }
 
 const countriesList = _.values(countries);
-let filteredCountries = [...countriesList];
 
 export default class CountryPicker extends Component {
   static propTypes = {
@@ -100,85 +97,62 @@ export default class CountryPicker extends Component {
 
   constructor(props) {
     super(props)
-    this.openModal = this.openModal.bind(this)
-    this.renderCountry = this.renderCountry.bind(this)
+    this.openModal = this.openModal.bind(this);
+    this.renderCountry = this.renderCountry.bind(this);
+    this.onCountrySelected = this.onCountrySelected.bind(this);
 
     this.state = {
       modalVisible: false,
-      filter: '',
-    }
-
-    if (this.props.styles) {
-      Object.keys(countryPickerStyles).forEach(key => {
-        styles[key] = StyleSheet.flatten([
-          countryPickerStyles[key],
-          this.props.styles[key]
-        ])
-      })
-      styles = StyleSheet.create(styles)
-    } else {
-      styles = countryPickerStyles
+      query: '',
     }
   }
 
-  onSelectCountry(cca2) {
+  onCountrySelected(country) {
     this.setState({
-      modalVisible: false,
-      filter: ''
+      modalVisible: false
     })
 
     this.props.onChange({
-      cca2,
-      ...countries[cca2],
+      country,
+      ...countries[country],
       flag: undefined,
-      name: this.getCountryName(countries[cca2])
+      name: countries[country].name.common
     })
   }
 
   onClose() {
     this.setState({
-      modalVisible: false,
-      filter: ''
+      modalVisible: false
     })
     if (this.props.onClose) {
       this.props.onClose()
     }
   }
 
-  getCountryName(country) {
-    const translation = this.props.translation || 'eng';
-    return country.name[translation] || country.name['common'] || country[Object.keys(o)[0]];
-  }
-
-  _keyExtractor = (item) => this.getCountryName(item);
+  getFilteredData = (query) => (query === '' ?
+    countriesList :
+    _.filter(countriesList, o => o.name.common.toLowerCase()
+      .startsWith(query.trim().toLowerCase())));
 
   openModal() {
     this.setState({ modalVisible: true })
   }
 
-  handleFilterChange = value => {
-    filteredCountries = value === '' ?
-      countriesList :
-      _.filter(countriesList, (o) => {
-        return this.getCountryName(o).toLowerCase().startsWith(value.trim().toLowerCase());
-      });
-    console.log('filteredCountries', value, filteredCountries.length, filteredCountries);
-
-    this.setState({
-      filter: value
-    })
-  }
+  keyExtractor = (country) => country.name.common;
 
   renderCountry({ item }) {
     return (
       <CountryItem
         country={item}
-        countryName={this.getCountryName(item)}
+        onCountrySelected={this.onCountrySelected}
       />
     )
   }
 
   render() {
+    const { query } = this.state;
+    const filteredCountries = this.getFilteredData(query);
+
     return (
       <View>
         <TouchableOpacity
@@ -219,8 +193,8 @@ export default class CountryPicker extends Component {
                       placeholder={this.props.filterPlaceholder}
                       placeholderTextColor={this.props.filterPlaceholderTextColor}
                       style={styles.input}
-                      onChangeText={this.handleFilterChange}
-                      value={this.state.filter}
+                      onChangeText={text => this.setState({ query: text })}
+                      value={this.state.query}
                     />
                   )}
                 </View>
@@ -228,7 +202,7 @@ export default class CountryPicker extends Component {
                   contentContainerStyle={styles.countryListContainer}
                   data={filteredCountries}
                   renderItem={this.renderCountry}
-                  keyExtractor={this._keyExtractor}
+                  keyExtractor={this.keyExtractor}
                 />
               </View>
             </View>

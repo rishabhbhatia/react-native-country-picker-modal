@@ -1,9 +1,9 @@
-import { Platform, Dimensions, StyleSheet, PixelRatio } from 'react-native'
+import { Dimensions, StyleSheet, PixelRatio } from 'react-native'
 import { getHeightPercent } from './ratio'
 
 const { height, width } = Dimensions.get('window');
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     alignItems: 'center',
@@ -87,4 +87,6 @@ export default StyleSheet.create({
     width: 24,
     resizeMode: 'contain'
   }
-})
+});
+
+export default styles;
