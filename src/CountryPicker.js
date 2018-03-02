@@ -36,6 +36,7 @@ if (isEmojiable) {
   Emoji = <View />
 }
 
+const cca2List = _.keys(countries);
 const countriesList = _.values(countries);
 
 export default class CountryPicker extends Component {
@@ -108,16 +109,9 @@ export default class CountryPicker extends Component {
   }
 
   onCountrySelected(country) {
-    this.setState({
-      modalVisible: false
-    })
-
-    this.props.onChange({
-      country,
-      ...countries[country],
-      flag: undefined,
-      name: countries[country].name.common
-    })
+    this.setState({ modalVisible: false });
+    const cca2 = cca2List[countriesList.indexOf(country)];
+    this.props.onChange({ cca2, country });
   }
 
   onClose() {
