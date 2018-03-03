@@ -11,6 +11,7 @@ import {
   Text,
   TextInput,
   Platform,
+  Image,
   ListView
 } from 'react-native'
 
@@ -77,16 +78,23 @@ export default class CountryPicker extends PureComponent {
   }
 
   static renderImageFlag(cca2, imageStyle) {
-    return cca2 !== '' ? (
-      <FastImage
-        style={[styles.imgStyle, imageStyle]}
-        source={{
-          uri: countries[cca2].flag,
-          priority: FastImage.priority.low,
-        }}
-        resizeMode={FastImage.resizeMode.contain}
-      />
-    ) : null
+    return cca2 !== '' ?
+      Platform.OS === 'ios' ?
+        (
+          <FastImage
+            style={[styles.imgStyle, imageStyle]}
+            source={{
+              uri: countries[cca2].flag,
+              priority: FastImage.priority.low,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        ) : (
+          <Image
+            style={[styles.imgStyle, imageStyle]}
+            source={{ uri: countries[cca2].flag }}
+            resizeMode="contain" />
+        ) : null
   }
 
   static renderFlag(cca2, itemStyle, emojiStyle, imageStyle) {

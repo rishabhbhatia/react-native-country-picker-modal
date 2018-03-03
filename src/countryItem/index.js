@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   TouchableOpacity,
+  Platform,
   Text
 } from 'react-native'
 
@@ -14,7 +15,7 @@ export default class CountryItem extends React.PureComponent {
   renderCountryDetail() {
     return (
       <View style={styles.itemCountry}>
-        {this.props.renderFlag(this.props.cca2)}
+        {Platform.OS === 'ios' ? this.props.renderFlag(this.props.cca2) : null}
         <View style={styles.itemCountryName}>
           <Text style={styles.countryName}>{this.props.country.name.common}</Text>
         </View>
