@@ -8,7 +8,7 @@ import {
 
 import PropTypes from 'prop-types';
 
-import styles from '../CountryPicker.style';
+import styles from '../styles';
 
 export default class CountryItem extends React.PureComponent {
 

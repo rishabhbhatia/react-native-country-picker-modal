@@ -20,7 +20,7 @@ import { getHeightPercent } from './ratio'
 
 import CountryItem from './countryItem';
 import CloseButton from './CloseButton'
-import styles from './CountryPicker.style'
+import styles from './styles'
 
 let countries = null
 let Emoji = null
