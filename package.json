@@ -1,5 +1,5 @@
 {
-  "name": "react-native-country-picker-modal",
+  "name": "ReactNativeCountryPickerModal",
   "version": "0.5.1",
   "description": "Country picker",
   "main": "src/CountryPicker.js",

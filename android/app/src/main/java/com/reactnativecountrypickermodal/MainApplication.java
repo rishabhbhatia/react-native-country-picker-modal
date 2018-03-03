@@ -1,4 +1,4 @@
-package com.react-native-country-picker-modal;
+package com.reactnativecountrypickermodal;
 
 import android.app.Application;
 
@@ -24,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FastImageViewPackage()
+          new FastImageViewPackage()
       );
     }
 

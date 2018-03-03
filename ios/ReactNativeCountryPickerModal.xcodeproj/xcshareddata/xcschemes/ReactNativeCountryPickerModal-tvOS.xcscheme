@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "react-native-country-picker-modal-tvOS.app"
-               BlueprintName = "react-native-country-picker-modal-tvOS"
-               ReferencedContainer = "container:react-native-country-picker-modal.xcodeproj">
+               BuildableName = "ReactNativeCountryPickerModal-tvOS.app"
+               BlueprintName = "ReactNativeCountryPickerModal-tvOS"
+               ReferencedContainer = "container:ReactNativeCountryPickerModal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "react-native-country-picker-modal-tvOSTests.xctest"
-               BlueprintName = "react-native-country-picker-modal-tvOSTests"
-               ReferencedContainer = "container:react-native-country-picker-modal.xcodeproj">
+               BuildableName = "ReactNativeCountryPickerModal-tvOSTests.xctest"
+               BlueprintName = "ReactNativeCountryPickerModal-tvOSTests"
+               ReferencedContainer = "container:ReactNativeCountryPickerModal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "react-native-country-picker-modal-tvOSTests.xctest"
-               BlueprintName = "react-native-country-picker-modal-tvOSTests"
-               ReferencedContainer = "container:react-native-country-picker-modal.xcodeproj">
+               BuildableName = "ReactNativeCountryPickerModal-tvOSTests.xctest"
+               BlueprintName = "ReactNativeCountryPickerModal-tvOSTests"
+               ReferencedContainer = "container:ReactNativeCountryPickerModal.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "react-native-country-picker-modal-tvOS.app"
-            BlueprintName = "react-native-country-picker-modal-tvOS"
-            ReferencedContainer = "container:react-native-country-picker-modal.xcodeproj">
+            BuildableName = "ReactNativeCountryPickerModal-tvOS.app"
+            BlueprintName = "ReactNativeCountryPickerModal-tvOS"
+            ReferencedContainer = "container:ReactNativeCountryPickerModal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "react-native-country-picker-modal-tvOS.app"
-            BlueprintName = "react-native-country-picker-modal-tvOS"
-            ReferencedContainer = "container:react-native-country-picker-modal.xcodeproj">
+            BuildableName = "ReactNativeCountryPickerModal-tvOS.app"
+            BlueprintName = "ReactNativeCountryPickerModal-tvOS"
+            ReferencedContainer = "container:ReactNativeCountryPickerModal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "react-native-country-picker-modal-tvOS.app"
-            BlueprintName = "react-native-country-picker-modal-tvOS"
-            ReferencedContainer = "container:react-native-country-picker-modal.xcodeproj">
+            BuildableName = "ReactNativeCountryPickerModal-tvOS.app"
+            BlueprintName = "ReactNativeCountryPickerModal-tvOS"
+            ReferencedContainer = "container:ReactNativeCountryPickerModal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
