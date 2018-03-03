@@ -38,6 +38,7 @@
     "lodash": "^4.12.0",
     "node-emoji": "1.8.1",
     "prop-types": "15.6.0",
+    "react-native-fast-image": "^2.2.5",
     "world-countries": "1.8.0"
   },
   "devDependencies": {

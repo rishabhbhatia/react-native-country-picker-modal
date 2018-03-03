@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Image,
   TouchableOpacity,
   Text
 } from 'react-native'
@@ -15,7 +14,7 @@ export default class CountryItem extends React.PureComponent {
   renderCountryDetail() {
     return (
       <View style={styles.itemCountry}>
-        {/* {CountryPicker.renderFlag(this.props.country)} */}
+        {this.props.renderFlag(this.props.cca2)}
         <View style={styles.itemCountryName}>
           <Text style={styles.countryName}>{this.props.country.name.common}</Text>
         </View>
@@ -37,10 +36,14 @@ export default class CountryItem extends React.PureComponent {
 
 CountryItem.propTypes = {
   country: PropTypes.objectOf(PropTypes.any).isRequired,
-  onCountrySelected: PropTypes.func.isRequired
+  onCountrySelected: PropTypes.func.isRequired,
+  renderFlag: PropTypes.func.isRequired,
+  cca2: PropTypes.string
 }
 
 CountryItem.defaultProps = {
   country: { name: { common: '' } },
-  onCountrySelected: () => { }
+  onCountrySelected: () => { },
+  renderFlag: () => { },
+  cca2: ''
 };

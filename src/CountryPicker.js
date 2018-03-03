@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 import {
   View,
-  Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
   Modal,
@@ -16,6 +15,7 @@ import {
 } from 'react-native'
 
 import _ from 'lodash';
+import FastImage from 'react-native-fast-image'
 import { getHeightPercent } from './ratio'
 
 import CountryItem from './countryItem';
@@ -78,9 +78,13 @@ export default class CountryPicker extends PureComponent {
 
   static renderImageFlag(cca2, imageStyle) {
     return cca2 !== '' ? (
-      <Image
+      <FastImage
         style={[styles.imgStyle, imageStyle]}
-        source={{ uri: countries[cca2].flag }}
+        source={{
+          uri: countries[cca2].flag,
+          priority: FastImage.priority.low,
+        }}
+        resizeMode={FastImage.resizeMode.contain}
       />
     ) : null
   }
@@ -134,11 +138,13 @@ export default class CountryPicker extends PureComponent {
     this.setState({ modalVisible: true })
   }
 
-  renderCountry(country) {
+  renderCountry(country, index) {
     return (
       <CountryItem
         country={country}
+        cca2={cca2List[countriesList.indexOf(country)]}
         onCountrySelected={this.onCountrySelected}
+        renderFlag={CountryPicker.renderFlag}
       />
     )
   }
