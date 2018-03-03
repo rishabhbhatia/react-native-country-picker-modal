@@ -179,6 +179,7 @@ export default class CountryPicker extends PureComponent {
                       style={styles.input}
                       onChangeText={this.filterCountries}
                       value={this.state.query}
+                      underlineColorAndroid="transparent"
                     />
                   )}
                 </View>
