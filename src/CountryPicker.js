@@ -1,10 +1,9 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import {
-  StyleSheet,
   View,
   Image,
   TouchableOpacity,
@@ -13,10 +12,11 @@ import {
   Text,
   TextInput,
   Platform,
-  FlatList
+  ListView
 } from 'react-native'
 
 import _ from 'lodash';
+import { getHeightPercent } from './ratio'
 
 import CountryItem from './countryItem';
 import CloseButton from './CloseButton'
@@ -38,8 +38,12 @@ if (isEmojiable) {
 
 const cca2List = _.keys(countries);
 const countriesList = _.values(countries);
+let filteredCountries = [...countriesList];
 
-export default class CountryPicker extends Component {
+const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+
+
+export default class CountryPicker extends PureComponent {
   static propTypes = {
     cca2: PropTypes.string.isRequired,
     translation: PropTypes.string,
@@ -105,6 +109,7 @@ export default class CountryPicker extends Component {
     this.state = {
       modalVisible: false,
       query: '',
+      dataSource: ds.cloneWithRows(filteredCountries)
     }
   }
 
@@ -123,30 +128,36 @@ export default class CountryPicker extends Component {
     }
   }
 
-  getFilteredData = (query) => (query === '' ?
-    countriesList :
-    _.filter(countriesList, o => o.name.common.toLowerCase()
-      .startsWith(query.trim().toLowerCase())));
+  setVisibleListHeight(offset) {
+    this.visibleListHeight = getHeightPercent(100) - offset
+  }
+
+  filterCountries = (query) => {
+    filteredCountries = query === '' ?
+      countriesList :
+      _.filter(countriesList, o => o.name.common.toLowerCase()
+        .startsWith(query.trim().toLowerCase()));
+    this.setState({
+      ...this.state,
+      query,
+      dataSource: ds.cloneWithRows(filteredCountries)
+    });
+  };
 
   openModal() {
     this.setState({ modalVisible: true })
   }
 
-  keyExtractor = (country) => country.name.common;
-
-  renderCountry({ item }) {
+  renderCountry(country) {
     return (
       <CountryItem
-        country={item}
+        country={country}
         onCountrySelected={this.onCountrySelected}
       />
     )
   }
 
   render() {
-    const { query } = this.state;
-    const filteredCountries = this.getFilteredData(query);
-
     return (
       <View>
         <TouchableOpacity
@@ -187,17 +198,22 @@ export default class CountryPicker extends Component {
                       placeholder={this.props.filterPlaceholder}
                       placeholderTextColor={this.props.filterPlaceholderTextColor}
                       style={styles.input}
-                      onChangeText={text => this.setState({ query: text })}
+                      onChangeText={this.filterCountries}
                       value={this.state.query}
                     />
                   )}
                 </View>
-                <FlatList
-                  contentContainerStyle={styles.countryListContainer}
-                  data={filteredCountries}
-                  renderItem={this.renderCountry}
-                  keyExtractor={this.keyExtractor}
+                <ListView
                   keyboardShouldPersistTaps="handled"
+                  enableEmptySections
+                  dataSource={this.state.dataSource}
+                  renderRow={this.renderCountry}
+                  initialListSize={30}
+                  pageSize={100}
+                  contentContainerStyle={styles.countryListContainer}
+                  onLayout={({ nativeEvent: { layout: { y: offset } } }) =>
+                    this.setVisibleListHeight(offset)
+                  }
                 />
               </View>
             </View>

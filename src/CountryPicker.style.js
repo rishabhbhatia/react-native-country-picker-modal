@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: 25
+    padding: 35
   },
   modalContent: {
     maxHeight: height * 0.8,
