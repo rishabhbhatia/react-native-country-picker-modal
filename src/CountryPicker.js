@@ -19,7 +19,6 @@ import _ from 'lodash';
 import { getHeightPercent } from './ratio'
 
 import CountryItem from './countryItem';
-import CloseButton from './CloseButton'
 import styles from './styles'
 
 let countries = null
@@ -48,17 +47,13 @@ export default class CountryPicker extends PureComponent {
     cca2: PropTypes.string.isRequired,
     translation: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    onClose: PropTypes.func,
-    closeable: PropTypes.bool,
     filterable: PropTypes.bool,
     children: PropTypes.node,
     styles: PropTypes.object,
     filterPlaceholder: PropTypes.string,
     autoFocusFilter: PropTypes.bool,
-    // to provide a functionality to disable/enable the onPress of Country Picker.
     disabled: PropTypes.bool,
     filterPlaceholderTextColor: PropTypes.string,
-    closeButtonImage: Image.propTypes.source,
     transparent: PropTypes.bool,
     animationType: PropTypes.string
   }
@@ -119,15 +114,6 @@ export default class CountryPicker extends PureComponent {
     this.props.onChange({ cca2, country });
   }
 
-  onClose() {
-    this.setState({
-      modalVisible: false
-    })
-    if (this.props.onClose) {
-      this.props.onClose()
-    }
-  }
-
   setVisibleListHeight(offset) {
     this.visibleListHeight = getHeightPercent(100) - offset
   }
@@ -184,13 +170,6 @@ export default class CountryPicker extends PureComponent {
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <View style={styles.header}>
-                  {this.props.closeable && (
-                    <CloseButton
-                      image={this.props.closeButtonImage}
-                      styles={[styles.closeButton, styles.closeButtonImage]}
-                      onPress={() => this.onClose()}
-                    />
-                  )}
                   {this.props.filterable && (
                     <TextInput
                       autoFocus={this.props.autoFocusFilter}
