@@ -109,7 +109,7 @@ export default class CountryPicker extends PureComponent {
   }
 
   onCountrySelected(country) {
-    this.setState({ modalVisible: false });
+    this.resetState();
     const cca2 = cca2List[countriesList.indexOf(country)];
     this.props.onChange({ cca2, country });
   }
@@ -133,6 +133,15 @@ export default class CountryPicker extends PureComponent {
   openModal() {
     this.setState({ modalVisible: true })
   }
+
+  resetState = () => {
+    filteredCountries = [...countriesList];
+    this.setState({
+      modalVisible: false,
+      query: '',
+      dataSource: ds.cloneWithRows(filteredCountries)
+    });
+  };
 
   renderCountry(country) {
     return (
@@ -164,9 +173,9 @@ export default class CountryPicker extends PureComponent {
           transparent={this.props.transparent}
           animationType={this.props.animationType}
           visible={this.state.modalVisible}
-          onRequestClose={() => this.setState({ modalVisible: false })}
+          onRequestClose={this.resetState}
         >
-          <TouchableWithoutFeedback onPress={() => { this.setState({ modalVisible: false }) }} >
+          <TouchableWithoutFeedback onPress={this.resetState} >
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
                 <View style={styles.header}>
